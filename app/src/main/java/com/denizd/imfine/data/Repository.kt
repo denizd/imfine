@@ -59,4 +59,33 @@ class Repository private constructor(applicationContext: Context) {
     private fun resetHourlyEntry() = prefs.edit {
         putBoolean("hasCreatedEntryToday", false)
     }
+
+    fun getUsername(): String = prefs.getString("username", "") ?: ""
+    fun setUsername(newName: String) = prefs.edit {
+        putString("username", newName)
+    }
+
+    suspend fun getJson(): String {
+        var result = """
+            {
+                "entries" : [
+        """.trimIndent()
+        coroutineScope { db.getEntries() }.forEachIndexed { index, entry ->
+            // i know this doesn't look good
+            result +=
+"""${if (index == 0) "" else ","}
+        {
+            "rating" : ${entry.rating},
+            "description" : "${entry.description}",
+            "time" : ${entry.time}
+        }"""
+
+        }
+        result += """
+                
+                ]
+            }
+        """.trimIndent()
+        return result
+    }
 }

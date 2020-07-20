@@ -12,6 +12,9 @@ interface AppDao {
     @get:Query("SELECT * FROM entry ORDER BY time DESC")
     val allEntries: LiveData<List<Entry>>
 
+    @Query("SELECT * FROM entry ORDER BY time")
+    fun getEntries(): List<Entry>
+
     @Query("SELECT MAX(time) FROM entry")
     fun getLatestEntryTime(): Long
 

@@ -29,4 +29,31 @@
         <item>Care to share why?</item>
         <item>Tell me why, if you\'d like.</item>
     </string-array>
+
+    <string-array name="greetings">
+        <item>Hello, %s!</item>
+        <item>Hi, %s!</item>
+        <item>Welcome back, %s.</item>
+        <item>Great to see you again, %s.</item>
+    </string-array>
+
+    <string-array name="average_rating_0">
+        <item>Please talk to someone you trust.</item>
+        <item>Take a break from anything that might bother you, and please get better.</item>
+        <item>I see you\'ve been down lately. Don\'t let minor issues get to you!</item>
+        <item>Whatever happens, keep in mind; life\'s boring, but don\'t let that get you down.</item>
+        <item>You\'re on a good path; make the least biggest moments count the most.</item>
+        <item>I\'m glad to see you\'re happy.</item>
+        <item>You\'re on fire. Keep up the good mood.</item>
+    </string-array>
+
+    <string-array name="average_rating_1">
+        <item>I understand how you feel. Just know that it\'s alright to cry.</item>
+        <item>Take care of yourself, I don\'t want you to damage your life.</item>
+        <item>You haven\'t been feeling well lately. Please take care of yourself.</item>
+        <item>Keep your head up - you never know what might come up in the near future!</item>
+        <item>Always remember, a short smile can go a long way.</item>
+        <item>Keep up the good attitude!</item>
+        <item>Amazing to see how well you\'ve been doing for yourself.</item>
+    </string-array>
 </resources>
