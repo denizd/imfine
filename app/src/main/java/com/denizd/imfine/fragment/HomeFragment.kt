@@ -1,6 +1,5 @@
 package com.denizd.imfine.fragment
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -21,6 +20,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.title.text = String.format(
+            resources.getStringArray(R.array.greetings).random(),
+            viewModel.getUsername()
+        )
+
         viewModel.latestEntries.observe(viewLifecycleOwner) { latestEntries ->
             if (latestEntries.isEmpty()) {
                 binding.noEntryScreen.visibility = View.VISIBLE
@@ -31,14 +35,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun updateUi(entries: List<Entry>) {
-        binding.apply {
-            title.text = String.format(
-                resources.getStringArray(R.array.greetings).random(),
-                viewModel.getUsername()
-            )
-            val average = entries.map { it.rating.toFloat() }.average().roundToInt()
-            ratingAverageTagline.text = getRandomRatingArray()[average]
-        }
+        val average = entries.map { it.rating.toFloat() }.average().roundToInt()
+        binding.ratingAverageTagline.text = getRandomRatingArray()[average]
     }
 
     private fun getRandomRatingArray(): Array<out String> =

@@ -5,9 +5,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.preference.PreferenceManager
 import com.denizd.imfine.model.Entry
-import com.denizd.imfine.util.toDate
 import kotlinx.coroutines.coroutineScope
-import java.util.*
 
 class Repository private constructor(applicationContext: Context) {
 
@@ -32,6 +30,10 @@ class Repository private constructor(applicationContext: Context) {
 
     fun save(entry: Entry) {
         db.insert(entry)
+    }
+
+    fun deleteEntry(id: Long) {
+        db.deleteEntry(id)
     }
 
     /**
@@ -65,27 +67,19 @@ class Repository private constructor(applicationContext: Context) {
         putString("username", newName)
     }
 
-    suspend fun getJson(): String {
+    suspend fun getJson(includeDescription: Boolean = true): String {
         var result = """
             {
                 "entries" : [
         """.trimIndent()
         coroutineScope { db.getEntries() }.forEachIndexed { index, entry ->
-            // i know this doesn't look good
-            result +=
-"""${if (index == 0) "" else ","}
-        {
-            "rating" : ${entry.rating},
-            "description" : "${entry.description}",
-            "time" : ${entry.time}
-        }"""
-
+            result += "${if (index == 0) "" else ","}\n\t\t{" +
+                    "\n\t\t\t\"rating\" : ${entry.rating}" +
+                    (if (includeDescription) "\n\t\t\t\"description\" : ${entry.description}" else "") +
+                    "\n\t\t\t\"time\" : ${entry.time}" +
+                    "\n\t\t}"
         }
-        result += """
-                
-                ]
-            }
-        """.trimIndent()
+        result += "\n\t]\n}"
         return result
     }
 }

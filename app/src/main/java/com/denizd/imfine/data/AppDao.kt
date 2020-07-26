@@ -23,4 +23,7 @@ interface AppDao {
 
     @get:Query("SELECT * FROM entry ORDER BY time DESC LIMIT 5")
     val latestEntries: LiveData<List<Entry>>
+
+    @Query("DELETE FROM entry WHERE id = :id")
+    fun deleteEntry(id: Long)
 }
