@@ -36,6 +36,9 @@
         <item>Tell me why, if you\'d like.</item>
     </string-array>
 
+    <string name="date_back">Date back (optional)</string>
+    <string name="invalid_date">Date invalid (yyyy-MM-dd, HH:mm)</string>
+
     <string-array name="greetings">
         <item>Hello, %s!</item>
         <item>Hi, %s!</item>

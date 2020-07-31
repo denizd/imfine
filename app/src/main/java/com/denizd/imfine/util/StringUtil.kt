@@ -9,3 +9,6 @@ private val sdfDay: SimpleDateFormat = SimpleDateFormat("dd", Locale.ROOT)
 fun Long.toDate(): String = sdf.format(Date(this))
 
 fun Date.toDate(): String = sdfDay.format(this)
+
+fun String.toTimestamp(): Long =
+    (sdf.parse(this) ?: throw IllegalArgumentException("Invalid date")).time

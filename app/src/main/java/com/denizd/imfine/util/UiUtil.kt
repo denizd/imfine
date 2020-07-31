@@ -23,8 +23,19 @@ fun createEntryDialog(context: Context,
                 dialog.dismiss()
             }
             createButton.setOnClickListener {
-                dialog.dismiss()
-                onCreateEntry(Entry(slider.value.toInt(), description.text.toString()))
+                if (dateBack.text.isNullOrBlank()) {
+                    onCreateEntry(Entry(slider.value.toInt(), description.text.toString()))
+                    dialog.dismiss()
+                } else try {
+                    onCreateEntry(Entry(
+                        slider.value.toInt(),
+                        description.text.toString(),
+                        time = dateBack.text.toString().toTimestamp(),
+                    ))
+                    dialog.dismiss()
+                } catch (e: IllegalArgumentException) {
+                    dateBack.error = context.getString(R.string.invalid_date)
+                }
             }
             dialog.show()
         }
